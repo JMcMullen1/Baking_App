@@ -1,0 +1,60 @@
+{
+  "expo": {
+    "name": "Baking App",
+    "slug": "baking-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF9F0"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.simone.bakingapp",
+      "infoPlist": {
+        "UIBackgroundModes": ["fetch", "remote-notification"]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFF9F0"
+      },
+      "package": "com.simone.bakingapp",
+      "permissions": [
+        "NOTIFICATIONS",
+        "SCHEDULE_EXACT_ALARM",
+        "USE_EXACT_ALARM"
+      ],
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#FFB4D6"
+        }
+      ]
+    ],
+    "notification": {
+      "icon": "./assets/icon.png",
+      "color": "#FFB4D6",
+      "androidMode": "default",
+      "androidCollapsedTitle": "Baking App"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "baking-app"
+      }
+    }
+  }
+}
