@@ -1,0 +1,38 @@
+[build]
+  # Build command for Expo web
+  command = "npx expo export --platform web"
+
+  # Directory that contains the built files
+  publish = "dist"
+
+[build.environment]
+  # Use Node.js 18 or higher
+  NODE_VERSION = "18"
+
+  # Skip npm install during build (we'll use legacy-peer-deps)
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Redirect all requests to index.html for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Optional: Add headers for better performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

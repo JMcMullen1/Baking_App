@@ -169,7 +169,89 @@ Tests cover:
 
 ## 🏗️ Building for Production
 
-### iOS Build
+### 🌐 Web Deployment (Netlify/Vercel/GitHub Pages)
+
+This app can be deployed as a web application with limited functionality (notifications won't work in browsers).
+
+#### Prerequisites
+- The app now includes `react-dom` and `react-native-web` dependencies
+- `.npmrc` file is configured for compatibility
+- `netlify.toml` is pre-configured for Netlify deployment
+
+#### Deploy to Netlify
+
+1. **Connect Repository to Netlify**
+   - Go to [Netlify](https://netlify.com) and sign in
+   - Click "Add new site" → "Import an existing project"
+   - Connect your GitHub repository
+   - Select the `main` branch (or any branch you want to deploy)
+
+2. **Build Settings** (Auto-detected from `netlify.toml`)
+   - Build command: `npx expo export --platform web`
+   - Publish directory: `dist`
+   - Node version: 18
+
+3. **Deploy**
+   - Click "Deploy site"
+   - Netlify will automatically build and deploy your app
+   - Your app will be available at `https://[your-site-name].netlify.app`
+
+#### Deploy to Vercel
+
+Create a `vercel.json` file in the root:
+```json
+{
+  "buildCommand": "npm run build:web",
+  "outputDirectory": "dist",
+  "devCommand": "npm run web",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
+Then connect your repository at [Vercel](https://vercel.com).
+
+#### Deploy to GitHub Pages
+
+1. Install gh-pages:
+   ```bash
+   npm install --save-dev gh-pages
+   ```
+
+2. Add to `package.json` scripts:
+   ```json
+   "predeploy": "npm run build:web",
+   "deploy": "gh-pages -d dist"
+   ```
+
+3. Deploy:
+   ```bash
+   npm run deploy
+   ```
+
+#### Manual Build
+
+To build the web version locally:
+
+```bash
+npm run build:web
+```
+
+This creates a `dist` folder with static files ready for deployment.
+
+#### Important Notes for Web Deployment
+- ⚠️ **Limited Functionality**: Notifications, alarms, and some native features won't work in browsers
+- ✅ **Works**: Recipe browsing, timers (visual only), stopwatch, unit converter, substitutions, pan sizes
+- 📱 **Best Experience**: Use the mobile app (Expo Go or native build) for full functionality
+
+### 📱 Mobile Builds (Full Functionality)
+
+For the complete app experience with notifications and alarms:
+
+#### iOS Build
 
 ```bash
 # Install EAS CLI globally
@@ -182,7 +264,7 @@ eas build:configure
 eas build --platform ios
 ```
 
-### Android Build
+#### Android Build
 
 ```bash
 # Build APK for Android
@@ -192,7 +274,7 @@ eas build --platform android --profile preview
 eas build --platform android
 ```
 
-### Local Builds
+#### Local Builds
 
 For local development builds without EAS:
 
